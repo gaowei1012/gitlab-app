@@ -2,12 +2,12 @@ import { ProjectStore } from './projects';
 import { LoadingStore } from './loading';
 
 export type RootStore = {
-  projectStoreInstance: ProjectStore;
+  projectInstance: ProjectStore;
   loadingInstance: LoadingStore;
 };
 
 const rootStore = {
-  projectStoreInstance: new ProjectStore(),
+  projectInstance: new ProjectStore(),
   loadingInstance: new LoadingStore(),
 };
 

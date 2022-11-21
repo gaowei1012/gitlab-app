@@ -9,7 +9,13 @@ const defaultRequestOption: requestOptions = {
   showMessage: true,
 };
 
-export function request(url: string, method: Method, data?: object, options?: requestOptions, atomic: boolean = true): Promise<responseBody> {
+export function request(
+  url: string,
+  method: Method,
+  data?: object,
+  options?: requestOptions,
+  atomic: boolean = true
+): Promise<responseBody> {
   const { showloading } = { ...defaultRequestOption, ...options };
   console.log('url==>>', url);
   return new Promise(async (resolve, reject) => {

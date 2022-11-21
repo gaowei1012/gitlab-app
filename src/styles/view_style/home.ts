@@ -11,8 +11,8 @@ export const homeStyle = StyleSheet.create({
   listItem: {
     marginHorizontal: px2dp(8),
     paddingVertical: px2dp(16),
-    borderBottomColor: '#333',
-    borderBottomWidth: px2dp(1),
+    borderBottomColor: '#EBEBEB',
+    borderBottomWidth: px2dp(2),
     borderStyle: 'solid',
   },
 });

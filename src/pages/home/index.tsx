@@ -4,14 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStore } from '@/hooks/useStore';
 import { observer } from 'mobx-react-lite';
 import { Navigation, px2dp } from '@/utils';
-import { homeStyle } from '@/styles';
 import { Empty } from '@/components/Empty';
+import { homeStyle } from '@/styles';
 
 const Home: React.FC<{}> = observer(() => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [refreshBottom, setRefreshBottom] = useState<boolean>(false);
 
-  const { projectStoreInstance } = useStore();
+  const { projectInstance } = useStore();
 
   useEffect(() => {
     (async () => {
@@ -28,10 +28,12 @@ const Home: React.FC<{}> = observer(() => {
   }, []);
 
   const getProjectList = async () => {
-    await projectStoreInstance.request_project_list();
+    await projectInstance.request_project_list();
   };
 
-  const onMomentumScrollEnd = (event: { nativeEvent: { contentSize: { height: any }; layoutMeasurement: { height: any }; contentOffset: { y: any } } }) => {
+  const onMomentumScrollEnd = (event: {
+    nativeEvent: { contentSize: { height: any }; layoutMeasurement: { height: any }; contentOffset: { y: any } };
+  }) => {
     const contentHeight = event.nativeEvent.contentSize.height;
     const scrollViewHeight = event.nativeEvent.layoutMeasurement.height;
     const scrollOffset = event.nativeEvent.contentOffset.y;
@@ -68,13 +70,14 @@ const Home: React.FC<{}> = observer(() => {
             width: '100%',
             alignItems: 'center',
           }}>
-          <ActivityIndicator animating={true} size='large' />
+          <ActivityIndicator animating={true} size='small' />
           <Text style={{ color: '#999', fontSize: 12 }}>加载中...</Text>
         </View>
       )}
     </>
   );
 
+  // 跳转详情
   const handlePress = (item: any) => {
     Navigation.navigate('project_detail', { state: item.id });
   };
@@ -84,11 +87,20 @@ const Home: React.FC<{}> = observer(() => {
       <ScrollView
         onScrollBeginDrag={onMomentumScrollEnd}
         onScrollEndDrag={onScrollEndDrag}
-        refreshControl={<RefreshControl size={20} refreshing={refreshing} onRefresh={onRefresh} title='加载中...' titleColor='#999' progressBackgroundColor='lightblue' />}
+        refreshControl={
+          <RefreshControl
+            size={18}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            title='加载中...'
+            titleColor='#999'
+            progressBackgroundColor='lightblue'
+          />
+        }
         style={homeStyle.scrolview}>
-        {projectStoreInstance.get_project_list_state().length != 0 ? (
-          projectStoreInstance.get_project_list_state().map(item => (
-            <TouchableOpacity key={item.id} onPress={() => handlePress(item)} activeOpacity={0.8} style={homeStyle.listItem}>
+        {projectInstance.get_project_list_state().length != 0 ? (
+          projectInstance.get_project_list_state().map(item => (
+            <TouchableOpacity key={item.id} onPress={() => handlePress(item)} style={homeStyle.listItem}>
               <Text>{item.name_with_namespace}</Text>
               <Text numberOfLines={2}>{item.description}</Text>
             </TouchableOpacity>

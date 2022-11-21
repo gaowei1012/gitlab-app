@@ -1,19 +1,3 @@
-/*
- * @Author: mingwei
- * @Date: 2022-05-12 20:57:44
- * @LastEditors: mingwei
- * @LastEditTime: 2022-05-12 20:57:44
- * @FilePath: /dgdream/gitlab_app/src/stores/useStore.tsx
- * @Description:
- */
-/*
- * @Author: mingwei
- * @Date: 2022-04-29 15:52:55
- * @LastEditors: mingwei
- * @LastEditTime: 2022-04-29 16:08:12
- * @FilePath: /notes/frontend/src/hooks/useStore.tsx
- * @Description:
- */
 import React from 'react';
 import { useLocalStore } from 'mobx-react-lite';
 import rootStore, { RootStore } from '../stores/index';
